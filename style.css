@@ -355,3 +355,492 @@ footer {
     }
 
 }
+/* =========================================
+   LOVE WEBSITE - NEW PAGES
+========================================= */
+
+
+/* NAVIGATION */
+
+.love-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 25px;
+
+    background: rgba(255, 247, 248, 0.95);
+
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid #f1d5db;
+}
+
+.nav-brand {
+    font-size: 22px;
+    color: #a93652;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #633641;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #a93652;
+}
+
+
+/* GAME PREVIEW */
+
+.games-preview {
+    padding: 90px 20px;
+    background: #fff;
+}
+
+.section-label {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #a45b6a;
+    text-transform: uppercase;
+}
+
+.games-preview h2 {
+    font-size: 38px;
+    font-weight: normal;
+}
+
+.games-intro {
+    color: #70545b;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.game-card-container {
+    max-width: 850px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.game-card {
+    text-decoration: none;
+    color: #3d252b;
+
+    padding: 35px 25px;
+
+    background: #fff7f8;
+
+    border: 1px solid #f0d3da;
+
+    border-radius: 20px;
+
+    transition: 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(100, 30, 50, 0.12);
+    color: #3d252b;
+}
+
+.game-card-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.game-card h3 {
+    font-weight: normal;
+}
+
+.game-card p {
+    color: #765a62;
+    line-height: 1.7;
+}
+
+.game-card span {
+    color: #a93652;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+
+/* GAME HEADER */
+
+.game-header,
+.numerology-header {
+    padding: 100px 20px;
+
+    background:
+        radial-gradient(circle at top, #ffdce4, transparent 50%),
+        linear-gradient(135deg, #fff7f8, #ffe9ee);
+}
+
+.game-header h1,
+.numerology-header h1 {
+    font-size: clamp(42px, 10vw, 75px);
+    font-weight: normal;
+    color: #9e304b;
+}
+
+.game-header p:last-child,
+.numerology-header p:last-child {
+    font-size: 19px;
+}
+
+
+/* GAME */
+
+.game-section {
+    padding: 90px 20px;
+    background: #fff;
+}
+
+.love-game {
+    max-width: 750px;
+    margin: auto;
+
+    text-align: center;
+
+    padding: 55px 25px;
+
+    border-radius: 25px;
+
+    background: #fff7f8;
+
+    box-shadow: 0 15px 50px rgba(80, 20, 35, 0.1);
+
+    overflow: hidden;
+}
+
+.game-number {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #a45b6a;
+    margin-bottom: 20px;
+}
+
+.love-game h2 {
+    font-size: 35px;
+    font-weight: normal;
+}
+
+.game-question {
+    font-size: 18px;
+    color: #70545b;
+    margin: 20px 0 40px;
+}
+
+.answer-area {
+    position: relative;
+
+    min-height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.answer-btn {
+    border: none;
+
+    padding: 14px 30px;
+
+    border-radius: 50px;
+
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.yes-btn {
+    background: #a93652;
+    color: white;
+}
+
+.yes-btn:hover {
+    transform: scale(1.08);
+}
+
+.no-btn {
+    background: #ddd;
+    color: #444;
+
+    position: relative;
+}
+
+.yes-message {
+    display: none;
+
+    margin-top: 30px;
+
+    font-size: 28px;
+
+    color: #a93652;
+
+    animation: popIn 0.5s ease;
+}
+
+.yes-message span {
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 16px;
+
+    color: #70545b;
+}
+
+@keyframes popIn {
+
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+
+/* FUTURE GAMES */
+
+.future-games {
+    padding: 90px 20px;
+    background: #fff7f8;
+}
+
+.future-games h2 {
+    font-weight: normal;
+    margin-bottom: 45px;
+}
+
+.future-game-grid {
+    max-width: 900px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.future-game {
+    padding: 30px 20px;
+
+    border: 1px dashed #dfb5c0;
+
+    border-radius: 18px;
+}
+
+.future-game span {
+    font-size: 35px;
+}
+
+.future-game h3 {
+    font-weight: normal;
+    margin-top: 15px;
+}
+
+.future-game p {
+    color: #765a62;
+}
+
+
+/* NUMEROLOGY */
+
+.numerology-section {
+    padding: 90px 20px;
+    background: #fff7f8;
+}
+
+.number-grid {
+    max-width: 900px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 30px;
+}
+
+.number-card {
+    text-align: center;
+
+    padding: 45px 30px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    box-shadow: 0 10px 40px rgba(80, 20, 35, 0.08);
+}
+
+.number-heart {
+    font-size: 40px;
+}
+
+.number-card h2 {
+    font-weight: normal;
+    font-size: 32px;
+}
+
+.number-card p {
+    color: #765a62;
+    line-height: 1.7;
+}
+
+.big-number {
+    font-size: 80px;
+    color: #a93652;
+
+    margin: 15px 0;
+}
+
+
+/* COMPATIBILITY */
+
+.compatibility-card {
+    max-width: 700px;
+
+    margin: 50px auto 0;
+
+    padding: 55px 30px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 25px;
+
+    box-shadow: 0 15px 50px rgba(80, 20, 35, 0.1);
+}
+
+.compatibility-card h2 {
+    font-size: 50px;
+    font-weight: normal;
+}
+
+.compatibility-score {
+    font-size: 65px;
+    color: #a93652;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+}
+
+.compatibility-card h3 {
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.compatibility-card p {
+    max-width: 550px;
+    margin: 15px auto;
+
+    line-height: 1.8;
+
+    color: #70545b;
+}
+
+.final-numerology {
+    margin-top: 35px;
+
+    font-size: 22px;
+
+    color: #9e304b;
+}
+
+.final-numerology strong {
+    font-size: 28px;
+}
+
+.compatibility-card small {
+    display: block;
+
+    margin-top: 30px;
+
+    color: #999;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .love-nav {
+        padding: 12px 15px;
+    }
+
+    .nav-links {
+        gap: 9px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+    }
+
+    .nav-brand {
+        font-size: 18px;
+    }
+
+    .game-card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .future-game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .number-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .love-game {
+        padding: 40px 15px;
+    }
+
+    .love-game h2 {
+        font-size: 28px;
+    }
+
+    .answer-area {
+        min-height: 180px;
+    }
+
+    .answer-btn {
+        padding: 12px 22px;
+    }
+
+    .compatibility-score {
+        font-size: 55px;
+    }
+
+}
