@@ -844,3 +844,151 @@ footer {
     }
 
 }
+
+/* =========================================
+   SECRET PAGE
+========================================= */
+
+.secret-page {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 70px 20px;
+
+    background:
+        radial-gradient(circle at top, #ffdce4, transparent 50%),
+        linear-gradient(135deg, #fff7f8, #ffe9ee);
+}
+
+.secret-box {
+    width: 100%;
+    max-width: 700px;
+
+    text-align: center;
+
+    background: white;
+
+    padding: 50px 30px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 60px rgba(80, 20, 35, 0.12);
+}
+
+.secret-lock {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.secret-box h1 {
+    color: #9e304b;
+    font-size: 42px;
+    font-weight: normal;
+}
+
+.secret-box > p {
+    color: #70545b;
+    line-height: 1.8;
+}
+
+.secret-box h3 {
+    margin: 35px 0 25px;
+    font-weight: normal;
+}
+
+.secret-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.secret-options button {
+    border: 1px solid #e5bbc5;
+
+    background: #fff7f8;
+
+    color: #633641;
+
+    padding: 13px 22px;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.secret-options button:hover {
+    background: #a93652;
+    color: white;
+    transform: translateY(-3px);
+}
+
+#secretResult {
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.correct-answer {
+    color: #a93652 !important;
+}
+
+.wrong-answer {
+    color: #777 !important;
+}
+
+.secret-letter {
+    display: none;
+
+    margin-top: 40px;
+
+    padding: 35px 25px;
+
+    background: #fff7f8;
+
+    border-radius: 18px;
+
+    animation: popIn 0.7s ease;
+}
+
+.secret-letter h2 {
+    color: #9e304b;
+    font-weight: normal;
+}
+
+.secret-letter p {
+    line-height: 1.9;
+    color: #70545b;
+}
+
+.secret-letter h3 {
+    color: #a93652;
+}
+
+
+/* MOBILE SECRET PAGE */
+
+@media (max-width: 600px) {
+
+    .secret-box {
+        padding: 40px 20px;
+    }
+
+    .secret-box h1 {
+        font-size: 32px;
+    }
+
+    .secret-options {
+        flex-direction: column;
+    }
+
+    .secret-options button {
+        width: 100%;
+    }
+
+}
