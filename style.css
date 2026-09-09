@@ -1248,3 +1248,62 @@ footer {
     }
 
 }
+
+/* =========================================
+   EXTRA GAMES
+========================================= */
+
+.miss-game-options,
+.sentence-options {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.miss-game-options button,
+.sentence-options button {
+    width: min(100%, 500px);
+
+    border: 1px solid #e5bbc5;
+
+    background: white;
+
+    color: #633641;
+
+    padding: 14px 20px;
+
+    border-radius: 40px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+    font-size: 15px;
+}
+
+.miss-game-options button:hover,
+.sentence-options button:hover {
+    background: #a93652;
+
+    color: white;
+
+    transform: translateY(-3px);
+}
+
+.game-result {
+    margin-top: 30px;
+
+    min-height: 30px;
+
+    color: #a93652;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
