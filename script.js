@@ -155,3 +155,120 @@ function checkSecret(answer) {
 
     }
 }
+
+/* =========================================
+   OUR JOURNEY MEMORIES
+========================================= */
+
+const memories = {
+
+    hand: {
+        icon: "🤝",
+        title: "The First Time I Held Your Hand",
+        text:
+            "I still remember that feeling. " +
+            "It was such a simple thing, but holding your hand " +
+            "for the first time made that moment unforgettable."
+    },
+
+    hug: {
+        icon: "🤗",
+        title: "Our First Hug",
+        text:
+            "For those few moments, everything else disappeared. " +
+            "It felt like being close to you was exactly where " +
+            "I was supposed to be."
+    },
+
+    kiss: {
+        icon: "💋",
+        title: "Our First Kiss",
+        text:
+            "Some memories don't need many words. " +
+            "This is one of those moments I will always carry " +
+            "with me."
+    },
+
+    office: {
+        icon: "🏢",
+        title: "Our Office Journeys",
+        text:
+            "Going to office with you every day and returning " +
+            "home with you made even the most ordinary routine " +
+            "feel special."
+    },
+
+    hands: {
+        icon: "❤️",
+        title: "Your Hands In Mine",
+        text:
+            "I love the way you hold my hands. " +
+            "There is something about that little moment " +
+            "that makes me feel close to you."
+    }
+
+};
+
+
+function showMemory(memoryName) {
+
+    const memory = memories[memoryName];
+
+    if (!memory) {
+        return;
+    }
+
+    const modal =
+        document.getElementById("memoryModal");
+
+    const icon =
+        document.getElementById("memoryIcon");
+
+    const title =
+        document.getElementById("memoryTitle");
+
+    const text =
+        document.getElementById("memoryText");
+
+    icon.innerHTML = memory.icon;
+
+    title.innerHTML = memory.title;
+
+    text.innerHTML = memory.text;
+
+    modal.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeMemory() {
+
+    const modal =
+        document.getElementById("memoryModal");
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "";
+}
+
+
+/* Close when clicking outside */
+
+const memoryModal =
+    document.getElementById("memoryModal");
+
+if (memoryModal) {
+
+    memoryModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === memoryModal) {
+                closeMemory();
+            }
+
+        }
+    );
+
+}
