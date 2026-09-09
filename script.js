@@ -272,3 +272,79 @@ if (memoryModal) {
     );
 
 }
+
+/* =========================================
+   GAME 2
+========================================= */
+
+function chooseMissing(answer) {
+
+    const result =
+        document.getElementById("missingResult");
+
+    if (!result) {
+        return;
+    }
+
+    if (answer === "soumya") {
+
+        result.innerHTML =
+            "Correct! ❤️ Soumya misses Sharmila every second.";
+
+    } else if (answer === "sharmila") {
+
+        result.innerHTML =
+            "Nice try 😏 But Soumya says he misses you more! ❤️";
+
+    } else {
+
+        result.innerHTML =
+            "That's probably the sweetest answer. 🥰❤️";
+
+    }
+
+    for (let i = 0; i < 5; i++) {
+
+        setTimeout(
+            createHeart,
+            i * 150
+        );
+
+    }
+}
+
+
+/* =========================================
+   GAME 3
+========================================= */
+
+function completeSentence(answer) {
+
+    const result =
+        document.getElementById("sentenceResult");
+
+    if (!result) {
+        return;
+    }
+
+    if (answer === "happy") {
+
+        result.innerHTML =
+            "❤️ Correct! That's exactly how Soumya feels.";
+
+        for (let i = 0; i < 6; i++) {
+
+            setTimeout(
+                createHeart,
+                i * 120
+            );
+
+        }
+
+    } else {
+
+        result.innerHTML =
+            "Wrong answer 😏 Try again, Sharmila ❤️";
+
+    }
+}
