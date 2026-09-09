@@ -23,3 +23,99 @@ function createHeart() {
 }
 
 setInterval(createHeart, 700);
+/* =========================================
+   LOVE GAME
+========================================= */
+
+const noButton = document.getElementById("noButton");
+const yesButton = document.getElementById("yesButton");
+const yesMessage = document.getElementById("yesMessage");
+
+if (noButton) {
+
+    function moveNoButton() {
+
+        const game = document.querySelector(".love-game");
+
+        const gameRect = game.getBoundingClientRect();
+        const buttonRect = noButton.getBoundingClientRect();
+
+        const maxX =
+            gameRect.width - buttonRect.width - 30;
+
+        const maxY = 130;
+
+        const randomX =
+            Math.random() * Math.max(maxX, 50);
+
+        const randomY =
+            Math.random() * maxY;
+
+        noButton.style.position = "absolute";
+
+        noButton.style.left =
+            Math.max(10, randomX) + "px";
+
+        noButton.style.top =
+            randomY + "px";
+    }
+
+
+    /* Desktop */
+
+    noButton.addEventListener(
+        "mouseenter",
+        moveNoButton
+    );
+
+
+    /* Mobile */
+
+    noButton.addEventListener(
+        "touchstart",
+        function(event) {
+
+            event.preventDefault();
+
+            moveNoButton();
+
+        },
+        { passive: false }
+    );
+
+
+    /* Extra protection */
+
+    noButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            moveNoButton();
+
+        }
+    );
+
+}
+
+
+/* YES BUTTON */
+
+if (yesButton) {
+
+    yesButton.addEventListener(
+        "click",
+        function() {
+
+            yesMessage.style.display = "block";
+
+            yesButton.innerHTML =
+                "❤️ I LOVE YOU TOO ❤️";
+
+            createHeart();
+
+        }
+    );
+
+}
