@@ -119,3 +119,39 @@ if (yesButton) {
     );
 
 }
+
+/* =========================================
+   SECRET PAGE
+========================================= */
+
+function checkSecret(answer) {
+
+    const result = document.getElementById("secretResult");
+    const letter = document.getElementById("secretLetter");
+
+    if (!result || !letter) {
+        return;
+    }
+
+    if (answer === "heart") {
+
+        result.innerHTML =
+            "❤️ Correct. You know me too well.";
+
+        result.className = "correct-answer";
+
+        letter.style.display = "block";
+
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createHeart, i * 150);
+        }
+
+    } else {
+
+        result.innerHTML =
+            "Hmm... try again, Sharmila 😏❤️";
+
+        result.className = "wrong-answer";
+
+    }
+}
