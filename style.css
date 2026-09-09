@@ -1,1 +1,357 @@
+html {
+    scroll-behavior: smooth;
+}
 
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #fff7f8;
+    color: #3d252b;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background:
+        radial-gradient(circle at top, #ffdce4, transparent 45%),
+        linear-gradient(135deg, #fff7f8, #ffe9ee);
+    position: relative;
+    overflow: hidden;
+}
+
+.small-text {
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 12px;
+    color: #a45b6a;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 15vw, 100px);
+    margin: 20px 0 5px;
+    color: #9e304b;
+    font-weight: normal;
+}
+
+.subtitle {
+    font-size: 22px;
+    font-style: italic;
+}
+
+.heart-divider {
+    font-size: 30px;
+    color: #c94b67;
+    margin: 30px 0;
+}
+
+.hero-message {
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+.love-btn {
+    margin-top: 25px;
+    padding: 13px 28px;
+    border-radius: 50px;
+    background: #a93652;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.love-btn:hover {
+    background: #7e263d;
+    color: white;
+    transform: scale(1.05);
+}
+
+
+/* SECTIONS */
+
+.story-section,
+.photos-section,
+.miss-section,
+.letter-section {
+    padding: 90px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title p,
+.letter-small {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #a45b6a;
+    text-transform: uppercase;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    font-weight: normal;
+}
+
+
+/* MEMORIES */
+
+.memory {
+    max-width: 750px;
+    margin: 0 auto 45px;
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    padding: 25px;
+    border-bottom: 1px solid #f0cbd3;
+}
+
+.memory-icon {
+    min-width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #f8d8df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a93652;
+    font-size: 21px;
+}
+
+.memory h3 {
+    margin-top: 0;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+.memory p {
+    line-height: 1.8;
+    color: #70545b;
+}
+
+
+/* PHOTOS */
+
+.photos-section {
+    background: #fff;
+}
+
+#loveCarousel {
+    max-width: 750px;
+    margin: auto;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(80, 20, 35, 0.18);
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.carousel-caption h5 {
+    font-size: 22px;
+}
+
+
+/* MISS YOU */
+
+.miss-section {
+    background:
+        linear-gradient(
+            rgba(139, 39, 64, 0.92),
+            rgba(100, 25, 45, 0.95)
+        );
+    color: white;
+}
+
+.big-heart {
+    font-size: 55px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.miss-section h2 {
+    font-size: 42px;
+    font-weight: normal;
+    margin: 25px 0;
+}
+
+.miss-section p {
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+.love-line {
+    font-size: 24px !important;
+    font-style: italic;
+}
+
+
+/* LETTER */
+
+.letter-section {
+    background: #fff7f8;
+}
+
+.letter {
+    max-width: 700px;
+    margin: auto;
+    padding: 45px 35px;
+    background: white;
+    box-shadow: 0 10px 40px rgba(100, 30, 50, 0.1);
+    border-radius: 5px;
+    position: relative;
+}
+
+.letter h2 {
+    font-size: 35px;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.letter p {
+    font-size: 18px;
+    line-height: 2;
+}
+
+.signature {
+    margin-top: 40px;
+    font-style: italic;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 30px 15px;
+    background: #2f1820;
+    color: #f5dce2;
+}
+
+
+/* HEART ANIMATION */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -20px;
+    animation: floatHeart 6s linear forwards;
+    opacity: 0.7;
+}
+
+@keyframes floatHeart {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+
+}
+
+@keyframes heartbeat {
+
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.2);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.15);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .hero h1 {
+        font-size: 60px;
+    }
+
+    .hero-message {
+        font-size: 17px;
+    }
+
+    .story-section,
+    .photos-section,
+    .miss-section,
+    .letter-section {
+        padding: 70px 15px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+
+    .memory {
+        gap: 15px;
+        padding: 20px 5px;
+    }
+
+    .memory h3 {
+        font-size: 20px;
+    }
+
+    .memory p {
+        font-size: 15px;
+    }
+
+    .carousel-item img {
+        height: 400px;
+    }
+
+    .miss-section h2 {
+        font-size: 32px;
+    }
+
+    .letter {
+        padding: 35px 22px;
+    }
+
+    .letter p {
+        font-size: 16px;
+    }
+
+}
