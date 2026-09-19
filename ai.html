@@ -22,6 +22,7 @@
 
 </head>
 
+
 <body>
 
 <div class="hearts"></div>
@@ -94,6 +95,8 @@
 
         <div class="ai-chat-box">
 
+            <!-- AI INTRO -->
+
             <div class="ai-welcome">
 
                 <div class="ai-avatar">
@@ -108,7 +111,7 @@
 
                     <p>
                         Hi Sharmila! ❤️
-                        I'm here to talk about
+                        Ask me anything about
                         your little love story with Soumya.
                     </p>
 
@@ -122,6 +125,17 @@
             <div id="chatMessages"
                  class="chat-messages">
 
+                <div class="message ai">
+
+                    <div class="message-bubble">
+
+                        Hi Sharmila! ❤️
+                        What would you like to know?
+
+                    </div>
+
+                </div>
+
             </div>
 
 
@@ -129,7 +143,7 @@
 
             <div id="typing"
                  class="typing"
-                 style="display:none;">
+                 style="display: none;">
 
                 Love AI is thinking
                 <span>•••</span>
@@ -148,7 +162,9 @@
                     autocomplete="off">
 
                 <button
-                    id="sendMessage">
+                    type="button"
+                    id="sendMessage"
+                    aria-label="Send message">
 
                     <i class="bi bi-heart-fill"></i>
 
@@ -161,16 +177,30 @@
 
             <div class="suggestions">
 
-                <button class="suggestion">
+                <button
+                    type="button"
+                    class="suggestion">
+
                     Do you think Soumya misses me?
+
                 </button>
 
-                <button class="suggestion">
+
+                <button
+                    type="button"
+                    class="suggestion">
+
                     What was our first memory?
+
                 </button>
 
-                <button class="suggestion">
-                    Write a message from Soumya
+
+                <button
+                    type="button"
+                    class="suggestion">
+
+                    Write a romantic message from Soumya
+
                 </button>
 
             </div>
@@ -181,6 +211,8 @@
 
 </section>
 
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -195,11 +227,17 @@
 </footer>
 
 
+<!-- BOOTSTRAP -->
+
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
+
+<!-- YOUR JAVASCRIPT -->
+
 <script src="script.js"></script>
+
 
 </body>
 
