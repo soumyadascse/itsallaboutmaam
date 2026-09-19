@@ -354,7 +354,7 @@ function completeSentence(answer) {
 ========================================= */
 
 const AI_WORKER_URL =
-    "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE";
+    "https://itsallaboutmaam.soumyadas-cse.workers.dev";
 
 
 const chatMessages =
