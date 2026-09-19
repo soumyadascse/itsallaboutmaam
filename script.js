@@ -348,3 +348,230 @@ function completeSentence(answer) {
 
     }
 }
+
+/* =========================================
+   LOVE AI
+========================================= */
+
+const AI_WORKER_URL =
+    "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE";
+
+
+const chatMessages =
+    document.getElementById("chatMessages");
+
+const userMessage =
+    document.getElementById("userMessage");
+
+const sendMessage =
+    document.getElementById("sendMessage");
+
+const typing =
+    document.getElementById("typing");
+
+
+function addChatMessage(message, sender) {
+
+    if (!chatMessages) return;
+
+
+    const messageDiv =
+        document.createElement("div");
+
+    messageDiv.className =
+        "message " + sender;
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "message-bubble";
+
+
+    // Convert new lines to HTML breaks safely
+    bubble.textContent = message;
+
+
+    messageDiv.appendChild(bubble);
+
+    chatMessages.appendChild(messageDiv);
+
+
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+}
+
+
+async function sendAIMessage() {
+
+    if (!userMessage) return;
+
+
+    const message =
+        userMessage.value.trim();
+
+
+    if (!message) return;
+
+
+    addChatMessage(
+        message,
+        "user"
+    );
+
+
+    userMessage.value = "";
+
+
+    if (typing) {
+
+        typing.style.display =
+            "block";
+
+    }
+
+
+    if (sendMessage) {
+
+        sendMessage.disabled =
+            true;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                AI_WORKER_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "AI request failed."
+            );
+
+        }
+
+
+        addChatMessage(
+            data.reply,
+            "ai"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Love AI error:",
+            error
+        );
+
+
+        addChatMessage(
+            "I'm having a little trouble connecting right now. ❤️ Please try again.",
+            "ai"
+        );
+
+
+    } finally {
+
+        if (typing) {
+
+            typing.style.display =
+                "none";
+
+        }
+
+
+        if (sendMessage) {
+
+            sendMessage.disabled =
+                false;
+
+        }
+
+    }
+
+}
+
+
+/* Send button */
+
+if (sendMessage) {
+
+    sendMessage.addEventListener(
+        "click",
+        sendAIMessage
+    );
+
+}
+
+
+/* Enter key */
+
+if (userMessage) {
+
+    userMessage.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                sendAIMessage();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* Suggested questions */
+
+const suggestions =
+    document.querySelectorAll(
+        ".suggestion"
+    );
+
+
+suggestions.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                userMessage.value =
+                    button.textContent.trim();
+
+                sendAIMessage();
+
+            }
+        );
+
+    }
+);
