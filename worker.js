@@ -34,8 +34,8 @@ Personality:
 
 Do not invent memories, dates, events, or personal information.
 
-When answering questions about Soumya, say that you are
-basing your answer on what Soumya wrote on the website.
+When answering questions about Soumya, say you are basing
+your answer on what Soumya wrote on the website.
 
 If asked whether Soumya loves Sharmila:
 Based on what Soumya wrote on the website, he clearly
@@ -52,7 +52,7 @@ for real communication between Soumya and Sharmila.
 function corsHeaders() {
     return {
         "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json"
     };
@@ -71,7 +71,7 @@ function jsonResponse(data, status = 200) {
 export default {
     async fetch(request, env) {
 
-        // CORS preflight
+        // CORS
         if (request.method === "OPTIONS") {
             return new Response(null, {
                 status: 204,
@@ -79,15 +79,17 @@ export default {
             });
         }
 
-        // Only POST is allowed
+        // Test endpoint
         if (request.method === "GET") {
             return jsonResponse({
                 status: "online",
                 message: "Love AI API is running ❤️",
-                geminiKeyConfigured: !!env.GEMINI_API_KEY
+                geminiKeyConfigured:
+                    !!env.GEMINI_API_KEY
             });
         }
 
+        // AI endpoint
         if (request.method !== "POST") {
             return jsonResponse(
                 {
@@ -119,12 +121,13 @@ export default {
                 return jsonResponse(
                     {
                         error:
-                            "Please keep your message under 1000 characters."
+                            "Message is too long."
                     },
                     400
                 );
             }
 
+            // Check Gemini secret
             if (!env.GEMINI_API_KEY) {
                 return jsonResponse(
                     {
@@ -135,21 +138,24 @@ export default {
                 );
             }
 
-            const response = await fetch(
+            // Call Gemini
+            const geminiResponse = await fetch(
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" +
                 encodeURIComponent(env.GEMINI_API_KEY),
                 {
                     method: "POST",
 
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type":
+                            "application/json"
                     },
 
                     body: JSON.stringify({
                         systemInstruction: {
                             parts: [
                                 {
-                                    text: SYSTEM_PROMPT
+                                    text:
+                                        SYSTEM_PROMPT
                                 }
                             ]
                         },
@@ -159,7 +165,8 @@ export default {
                                 role: "user",
                                 parts: [
                                     {
-                                        text: message
+                                        text:
+                                            message
                                     }
                                 ]
                             }
@@ -173,9 +180,11 @@ export default {
                 }
             );
 
-            const data = await response.json();
+            const data =
+                await geminiResponse.json();
 
-            if (!response.ok) {
+            if (!geminiResponse.ok) {
+
                 console.error(
                     "Gemini error:",
                     JSON.stringify(data)
@@ -185,15 +194,18 @@ export default {
                     {
                         error:
                             data?.error?.message ||
-                            "Gemini could not answer right now."
+                            "Gemini API request failed."
                     },
                     502
                 );
             }
 
             const reply =
-                data?.candidates?.[0]?.content?.parts
-                    ?.map(part => part.text || "")
+                data?.candidates?.[0]
+                    ?.content?.parts
+                    ?.map(part =>
+                        part.text || ""
+                    )
                     .join("")
                     .trim();
 
@@ -201,7 +213,7 @@ export default {
                 return jsonResponse(
                     {
                         error:
-                            "Love AI couldn't generate a response."
+                            "Gemini returned an empty response."
                     },
                     502
                 );
@@ -221,7 +233,8 @@ export default {
             return jsonResponse(
                 {
                     error:
-                        "Something went wrong. Please try again. ❤️"
+                        error?.message ||
+                        "Something went wrong. ❤️"
                 },
                 500
             );
