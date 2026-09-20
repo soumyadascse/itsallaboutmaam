@@ -32,21 +32,28 @@ Personality:
 - Keep answers reasonably short
 - Use ❤️ and 😊 naturally
 
+IMPORTANT:
+Do not claim that you can read Soumya's private thoughts.
+
+When answering questions about Soumya, say that you are
+basing your answer on what Soumya wrote on this website.
+
 Do not invent memories, dates, events, or personal information.
 
-When answering questions about Soumya, say you are basing
-your answer on what Soumya wrote on the website.
+If asked:
+"Does Soumya love me?"
 
-If asked whether Soumya loves Sharmila:
-Based on what Soumya wrote on the website, he clearly
-expresses very strong love for Sharmila.
+You can say that based on what Soumya wrote on the website,
+he clearly expresses very strong love for Sharmila.
 
-If asked whether Soumya misses Sharmila:
+If asked:
+"Does Soumya miss me?"
+
 Mention that Soumya specifically wrote:
 "I miss you every second."
 
-You are a fun part of their website, not a replacement
-for real communication between Soumya and Sharmila.
+You are a fun part of their website, not a replacement for
+real communication between Soumya and Sharmila.
 `;
 
 function corsHeaders() {
@@ -62,7 +69,7 @@ function jsonResponse(data, status = 200) {
     return new Response(
         JSON.stringify(data),
         {
-            status,
+            status: status,
             headers: corsHeaders()
         }
     );
@@ -71,6 +78,9 @@ function jsonResponse(data, status = 200) {
 export default {
     async fetch(request, env) {
 
+        // -----------------------------------------
+        // CORS preflight
+        // -----------------------------------------
         if (request.method === "OPTIONS") {
             return new Response(null, {
                 status: 204,
@@ -78,6 +88,9 @@ export default {
             });
         }
 
+        // -----------------------------------------
+        // GET - health check
+        // -----------------------------------------
         if (request.method === "GET") {
             return jsonResponse({
                 status: "online",
@@ -87,6 +100,9 @@ export default {
             });
         }
 
+        // -----------------------------------------
+        // Only POST is allowed for chat
+        // -----------------------------------------
         if (request.method !== "POST") {
             return jsonResponse(
                 {
@@ -98,6 +114,9 @@ export default {
 
         try {
 
+            // -----------------------------------------
+            // Read request
+            // -----------------------------------------
             const body = await request.json();
 
             const message =
@@ -117,12 +136,16 @@ export default {
             if (message.length > 1000) {
                 return jsonResponse(
                     {
-                        error: "Message is too long."
+                        error:
+                            "Please keep your message under 1000 characters."
                     },
                     400
                 );
             }
 
+            // -----------------------------------------
+            // Check Gemini API key
+            // -----------------------------------------
             if (!env.GEMINI_API_KEY) {
                 return jsonResponse(
                     {
@@ -133,6 +156,9 @@ export default {
                 );
             }
 
+            // -----------------------------------------
+            // Gemini Interactions API
+            // -----------------------------------------
             const geminiResponse = await fetch(
                 "https://generativelanguage.googleapis.com/v1beta/interactions",
                 {
@@ -145,27 +171,39 @@ export default {
                     },
 
                     body: JSON.stringify({
+
                         model: "gemini-3.6-flash",
+
+                        input: message,
 
                         system_instruction:
                             SYSTEM_PROMPT,
-
-                        input: message,
 
                         store: false
                     })
                 }
             );
 
+            // -----------------------------------------
+            // Read Gemini response
+            // -----------------------------------------
             const data =
                 await geminiResponse.json();
 
-            if (!geminiResponse.ok) {
+            console.log(
+                "Gemini status:",
+                geminiResponse.status
+            );
 
-                console.error(
-                    "Gemini error:",
-                    JSON.stringify(data)
-                );
+            console.log(
+                "Gemini response:",
+                JSON.stringify(data)
+            );
+
+            // -----------------------------------------
+            // Gemini API error
+            // -----------------------------------------
+            if (!geminiResponse.ok) {
 
                 return jsonResponse(
                     {
@@ -177,21 +215,84 @@ export default {
                 );
             }
 
-            const reply =
-                data?.output_text ||
-                data?.output
-                    ?.filter(item =>
-                        item.type === "text"
-                    )
-                    ?.map(item =>
-                        item.text
-                    )
-                    ?.join("")
-                    ?.trim();
+            // -----------------------------------------
+            // Extract text from Interactions API
+            //
+            // Current REST response:
+            //
+            // steps: [
+            //   {
+            //     type: "model_output",
+            //     content: [
+            //       {
+            //         type: "text",
+            //         text: "..."
+            //       }
+            //     ]
+            //   }
+            // ]
+            // -----------------------------------------
 
+            let reply = "";
+
+            if (Array.isArray(data?.steps)) {
+
+                for (const step of data.steps) {
+
+                    if (
+                        step?.type !==
+                        "model_output"
+                    ) {
+                        continue;
+                    }
+
+                    if (
+                        !Array.isArray(
+                            step.content
+                        )
+                    ) {
+                        continue;
+                    }
+
+                    for (
+                        const content
+                        of step.content
+                    ) {
+
+                        if (
+                            content?.type ===
+                            "text"
+                        ) {
+
+                            reply +=
+                                content.text ||
+                                "";
+                        }
+                    }
+                }
+            }
+
+            reply = reply.trim();
+
+            // -----------------------------------------
+            // Fallback for output_text
+            // -----------------------------------------
             if (!reply) {
+
+                reply =
+                    typeof data?.output_text ===
+                    "string"
+                        ? data.output_text.trim()
+                        : "";
+            }
+
+            // -----------------------------------------
+            // Empty response
+            // -----------------------------------------
+            if (!reply) {
+
                 console.error(
-                    "Unexpected Gemini response:",
+                    "Gemini returned no text:",
                     JSON.stringify(data)
                 );
 
@@ -204,6 +305,9 @@ export default {
                 );
             }
 
+            // -----------------------------------------
+            // Success
+            // -----------------------------------------
             return jsonResponse({
                 reply: reply
             });
@@ -212,14 +316,13 @@ export default {
 
             console.error(
                 "Worker error:",
-                error
+                error?.message || error
             );
 
             return jsonResponse(
                 {
                     error:
-                        error?.message ||
-                        "Something went wrong. ❤️"
+                        "Something went wrong. Please try again. ❤️"
                 },
                 500
             );
