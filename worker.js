@@ -71,7 +71,6 @@ function jsonResponse(data, status = 200) {
 export default {
     async fetch(request, env) {
 
-        // CORS
         if (request.method === "OPTIONS") {
             return new Response(null, {
                 status: 204,
@@ -79,7 +78,6 @@ export default {
             });
         }
 
-        // Test endpoint
         if (request.method === "GET") {
             return jsonResponse({
                 status: "online",
@@ -89,7 +87,6 @@ export default {
             });
         }
 
-        // AI endpoint
         if (request.method !== "POST") {
             return jsonResponse(
                 {
@@ -120,14 +117,12 @@ export default {
             if (message.length > 1000) {
                 return jsonResponse(
                     {
-                        error:
-                            "Message is too long."
+                        error: "Message is too long."
                     },
                     400
                 );
             }
 
-            // Check Gemini secret
             if (!env.GEMINI_API_KEY) {
                 return jsonResponse(
                     {
@@ -138,44 +133,26 @@ export default {
                 );
             }
 
-            // Call Gemini
             const geminiResponse = await fetch(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" +
-                encodeURIComponent(env.GEMINI_API_KEY),
+                "https://generativelanguage.googleapis.com/v1beta/interactions",
                 {
                     method: "POST",
 
                     headers: {
-                        "Content-Type":
-                            "application/json"
+                        "Content-Type": "application/json",
+                        "x-goog-api-key":
+                            env.GEMINI_API_KEY
                     },
 
                     body: JSON.stringify({
-                        systemInstruction: {
-                            parts: [
-                                {
-                                    text:
-                                        SYSTEM_PROMPT
-                                }
-                            ]
-                        },
+                        model: "gemini-3.6-flash",
 
-                        contents: [
-                            {
-                                role: "user",
-                                parts: [
-                                    {
-                                        text:
-                                            message
-                                    }
-                                ]
-                            }
-                        ],
+                        system_instruction:
+                            SYSTEM_PROMPT,
 
-                        generationConfig: {
-                            temperature: 0.8,
-                            maxOutputTokens: 400
-                        }
+                        input: message,
+
+                        store: false
                     })
                 }
             );
@@ -201,15 +178,23 @@ export default {
             }
 
             const reply =
-                data?.candidates?.[0]
-                    ?.content?.parts
-                    ?.map(part =>
-                        part.text || ""
+                data?.output_text ||
+                data?.output
+                    ?.filter(item =>
+                        item.type === "text"
                     )
-                    .join("")
-                    .trim();
+                    ?.map(item =>
+                        item.text
+                    )
+                    ?.join("")
+                    ?.trim();
 
             if (!reply) {
+                console.error(
+                    "Unexpected Gemini response:",
+                    JSON.stringify(data)
+                );
+
                 return jsonResponse(
                     {
                         error:
