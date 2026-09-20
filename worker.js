@@ -80,10 +80,18 @@ export default {
         }
 
         // Only POST is allowed
+        if (request.method === "GET") {
+            return jsonResponse({
+                status: "online",
+                message: "Love AI API is running ❤️",
+                geminiKeyConfigured: !!env.GEMINI_API_KEY
+            });
+        }
+
         if (request.method !== "POST") {
             return jsonResponse(
                 {
-                    error: "Only POST requests are allowed."
+                    error: "Method not allowed."
                 },
                 405
             );
